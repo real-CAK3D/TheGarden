@@ -27,11 +27,7 @@ npm run build
 npm run start
 ```
 
-This Garden VM currently serves the production build on port 3002:
-
-```bash
-npm start -- --hostname 0.0.0.0 --port 3002
-```
+No long-running local server is required; production lives on Vercel.
 
 ## Vercel deploy
 
