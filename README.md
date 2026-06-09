@@ -5,9 +5,10 @@ Animated farm-diorama dashboard for CAK3D's Garden agents and devices.
 ## What this build includes
 
 - Next.js app deployed on Vercel as `The Garden`
-- Lightweight 3D-style CSS/SVG farm diorama that avoids heavy WebGL stalls
-- Dashboard-only character avatars for The Gardiner, Ganja, Chronic, BAK3R, CYPH3R, Fat Man, Little Boy, Homie, and B.I.G.
-- Old farmhouse edge, wraparound porch, garden shed, oak tree, driveway, red farm truck, tractor loop, scarecrow, corn field, birds, butterflies, flowers, vegetables, and raised beds
+- True Three.js / React Three Fiber low-poly farm diorama
+- Dashboard-only animated gnome avatars for The Gardiner, Ganja, Chronic, BAK3R, CYPH3R, Fat Man, Little Boy, Homie, and B.I.G.
+- Walking route loops, character bob/leg motion, gnome labels, and compact HUD panels
+- Old farmhouse edge, wraparound porch, garden shed, oak trees, driveway, red farm truck, moving tractor, scarecrow, corn field, birds, sparkles, flowers, vegetables, and raised beds
 - Clickable agent roster and detail panel
 - Garden lane cards for Oracle VM, Obsidian/Memory Grove, theBAK3RY, Hack-Safe, NukeBox, and HP laptop
 - Static-safe data model in `src/lib/gardenData.ts`

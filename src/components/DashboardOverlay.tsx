@@ -1,6 +1,6 @@
 'use client';
 
-import { Activity, Bot, Clock3, Cpu, Leaf, RadioTower, Sparkles, Sprout } from 'lucide-react';
+import { Activity, Bot, ChevronRight, Cpu, EyeOff, Leaf, RadioTower, Sprout } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { agents, devices, statusCopy } from '@/lib/gardenData';
 import { useGardenStore } from '@/lib/store';
@@ -20,76 +20,56 @@ export function DashboardOverlay() {
   const watching = agents.filter((a) => a.status === 'watching').length;
 
   return (
-    <div className="overlay-grid">
-      <motion.section className="glass hero-panel" initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-        <div className="eyebrow"><Sparkles size={16} /> The Garden Live</div>
-        <h1>Living Farm Diorama</h1>
-        <p>
-          A smooth 3D-style animated Garden where dashboard-only agent avatars tend beds, haul soil,
-          fly past crows, watch the corn, and keep CAK3D&apos;s workshop alive without exposing private systems.
-        </p>
-        <div className="hero-stats">
-          <span><Bot size={16} /> {agents.length} agents</span>
-          <span><Cpu size={16} /> {devices.length} lanes</span>
-          <span><Activity size={16} /> {working} working</span>
-          <span><RadioTower size={16} /> {watching} watching</span>
-          <span><Leaf size={16} /> visual-only characters</span>
+    <div className="hud-shell">
+      <motion.header className="hud-card title-hud" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+        <div className="hud-eyebrow"><Leaf size={15} /> The Garden Live</div>
+        <h1>Gnome Garden</h1>
+        <p>Real Three.js low-poly dashboard. Tiny agents walk their routes; the UI stays out of the scenery&apos;s way.</p>
+        <div className="hud-stats">
+          <span><Bot size={14} /> {agents.length}</span>
+          <span><Cpu size={14} /> {devices.length}</span>
+          <span><Activity size={14} /> {working}</span>
+          <span><RadioTower size={14} /> {watching}</span>
         </div>
-      </motion.section>
+      </motion.header>
 
-      <motion.aside className="glass agent-list" initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.1 }}>
-        <div className="panel-title">Garden Cast</div>
-        {agents.map((agent) => (
-          <button key={agent.id} className={`agent-row ${selectedAgent.id === agent.id ? 'active' : ''}`} onClick={() => setSelectedAgent(agent)}>
-            <span className="agent-dot" style={{ background: agent.color, boxShadow: `0 0 18px ${agent.color}` }} />
-            <span>
-              <strong>{agent.name}</strong>
-              <small>{agent.sceneRole}</small>
-            </span>
-            <em className={statusClass[agent.status]}>{statusCopy[agent.status]}</em>
-          </button>
-        ))}
-      </motion.aside>
-
-      <motion.aside className="glass detail-panel" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.18 }}>
-        <div className="panel-title">Selected Agent</div>
-        <div className="agent-headline">
-          <div className="avatar-glow" style={{ background: selectedAgent.color, boxShadow: `0 0 36px ${selectedAgent.color}` }} />
+      <motion.aside className="hud-card selected-hud" initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55, delay: 0.1 }}>
+        <div className="mini-title">Selected Gnome</div>
+        <div className="selected-headline">
+          <span className="selected-orb" style={{ background: selectedAgent.color, boxShadow: `0 0 28px ${selectedAgent.color}` }} />
           <div>
             <h2>{selectedAgent.name}</h2>
             <p>{selectedAgent.title}</p>
           </div>
         </div>
-        <div className="status-pill-row">
-          <span className={`status-pill ${statusClass[selectedAgent.status]}`}>{statusCopy[selectedAgent.status]}</span>
-          <span className="status-pill neutral">{selectedAgent.zone}</span>
+        <div className="pill-row">
+          <span className={`pill ${statusClass[selectedAgent.status]}`}>{statusCopy[selectedAgent.status]}</span>
+          <span className="pill neutral">{selectedAgent.zone}</span>
         </div>
-        <p className="scene-copy">{selectedAgent.sceneRole}</p>
-        <p className="task-copy">{selectedAgent.currentTask}</p>
-        <div className="mini-grid">
-          <div><Clock3 size={16} /> Last seen <strong>{selectedAgent.stats.lastSeen}</strong></div>
-          <div><RadioTower size={16} /> Signal <strong>{selectedAgent.stats.signal}</strong></div>
-          <div><Activity size={16} /> Pulse <strong>{selectedAgent.stats.pulse}</strong></div>
-          <div><Sprout size={16} /> Props <strong>{selectedAgent.prop}</strong></div>
-        </div>
-        <div className="mood-box">
-          <span>Mood</span>
-          <p>{selectedAgent.mood}</p>
-        </div>
+        <p className="scene-line">{selectedAgent.sceneRole}</p>
+        <p className="task-line">{selectedAgent.currentTask}</p>
+        <div className="prop-line"><Sprout size={14} /> {selectedAgent.prop}</div>
       </motion.aside>
 
-      <motion.section className="glass device-strip" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }}>
-        <div className="panel-title">Garden Lanes</div>
-        <div className="device-grid">
-          {devices.map((device) => (
-            <div key={device.id} className="device-card">
-              <span className="device-light" style={{ background: device.color, boxShadow: `0 0 16px ${device.color}` }} />
-              <strong>{device.name}</strong>
-              <small>{device.kind}</small>
-              <p>{device.detail}</p>
-            </div>
-          ))}
-        </div>
+      <motion.nav className="hud-card roster-dock" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.18 }} aria-label="Gnome agent roster">
+        {agents.map((agent) => (
+          <button key={agent.id} className={`dock-agent ${selectedAgent.id === agent.id ? 'active' : ''}`} onClick={() => setSelectedAgent(agent)} title={`${agent.name}: ${agent.sceneRole}`}>
+            <span className="dock-dot" style={{ background: agent.color }} />
+            <strong>{agent.name}</strong>
+          </button>
+        ))}
+      </motion.nav>
+
+      <motion.section className="hud-card lane-hud" initial={{ opacity: 0, x: -18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55, delay: 0.22 }}>
+        <div className="mini-title">Garden Lanes</div>
+        {devices.slice(0, 4).map((device) => (
+          <div key={device.id} className="lane-row">
+            <span className="lane-light" style={{ background: device.color }} />
+            <span><strong>{device.name}</strong><small>{device.kind}</small></span>
+            <ChevronRight size={14} />
+          </div>
+        ))}
+        <div className="visual-note"><EyeOff size={13} /> dashboard-only character looks</div>
       </motion.section>
     </div>
   );

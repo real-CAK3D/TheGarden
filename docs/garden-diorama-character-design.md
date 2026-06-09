@@ -8,10 +8,10 @@ Build the Garden as a smooth, detailed, lightweight 3D-style farm diorama that c
 
 Preferred implementation:
 
-- CSS/SVG/HTML diorama first: 3D-ish perspective, layered shadows, textured gradients, animated sprites, and transform-based motion.
-- Avoid heavy WebGL/Three.js as the default because the Oracle VM is low-memory and previous WebGL/R3F testing made browser automation hang.
-- Keep the scene static-build safe for Vercel.
-- Add richer true-3D later only if performance stays smooth.
+- True Three.js / React Three Fiber scene for this approved phase: orthographic camera, low-poly mesh props, primitive gnome characters, path-following animation loops, and compact HTML HUD.
+- Keep geometry primitive/procedural and assets light enough for Vercel/GitHub and the 1 GB Oracle VM build environment.
+- Use `NODE_OPTIONS=--max-old-space-size=512 npm run build` on The Garden VM if TypeScript/Next builds start swapping.
+- Fall back to commit `99933e8` if browser rendering becomes too heavy or unstable.
 
 ## Scene elements
 
