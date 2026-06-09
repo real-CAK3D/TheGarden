@@ -1,6 +1,6 @@
 'use client';
 
-import { Activity, Bot, Clock3, Cpu, RadioTower, Sparkles } from 'lucide-react';
+import { Activity, Bot, Clock3, Cpu, Leaf, RadioTower, Sparkles, Sprout } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { agents, devices, statusCopy } from '@/lib/gardenData';
 import { useGardenStore } from '@/lib/store';
@@ -23,27 +23,28 @@ export function DashboardOverlay() {
     <div className="overlay-grid">
       <motion.section className="glass hero-panel" initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
         <div className="eyebrow"><Sparkles size={16} /> The Garden Live</div>
-        <h1>Living Agent Dashboard</h1>
+        <h1>Living Farm Diorama</h1>
         <p>
-          A top-down animated command world for CAK3D&apos;s agents, devices, memory lanes, and workshop vibes.
-          This first build is static-safe and Vercel-ready; the live telemetry bridge can plug in next.
+          A smooth 3D-style animated Garden where dashboard-only agent avatars tend beds, haul soil,
+          fly past crows, watch the corn, and keep CAK3D&apos;s workshop alive without exposing private systems.
         </p>
         <div className="hero-stats">
           <span><Bot size={16} /> {agents.length} agents</span>
-          <span><Cpu size={16} /> {devices.length} devices</span>
+          <span><Cpu size={16} /> {devices.length} lanes</span>
           <span><Activity size={16} /> {working} working</span>
           <span><RadioTower size={16} /> {watching} watching</span>
+          <span><Leaf size={16} /> visual-only characters</span>
         </div>
       </motion.section>
 
       <motion.aside className="glass agent-list" initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.1 }}>
-        <div className="panel-title">Agent Roster</div>
+        <div className="panel-title">Garden Cast</div>
         {agents.map((agent) => (
           <button key={agent.id} className={`agent-row ${selectedAgent.id === agent.id ? 'active' : ''}`} onClick={() => setSelectedAgent(agent)}>
             <span className="agent-dot" style={{ background: agent.color, boxShadow: `0 0 18px ${agent.color}` }} />
             <span>
               <strong>{agent.name}</strong>
-              <small>{agent.title}</small>
+              <small>{agent.sceneRole}</small>
             </span>
             <em className={statusClass[agent.status]}>{statusCopy[agent.status]}</em>
           </button>
@@ -63,11 +64,13 @@ export function DashboardOverlay() {
           <span className={`status-pill ${statusClass[selectedAgent.status]}`}>{statusCopy[selectedAgent.status]}</span>
           <span className="status-pill neutral">{selectedAgent.zone}</span>
         </div>
+        <p className="scene-copy">{selectedAgent.sceneRole}</p>
         <p className="task-copy">{selectedAgent.currentTask}</p>
         <div className="mini-grid">
           <div><Clock3 size={16} /> Last seen <strong>{selectedAgent.stats.lastSeen}</strong></div>
           <div><RadioTower size={16} /> Signal <strong>{selectedAgent.stats.signal}</strong></div>
           <div><Activity size={16} /> Pulse <strong>{selectedAgent.stats.pulse}</strong></div>
+          <div><Sprout size={16} /> Props <strong>{selectedAgent.prop}</strong></div>
         </div>
         <div className="mood-box">
           <span>Mood</span>
@@ -76,7 +79,7 @@ export function DashboardOverlay() {
       </motion.aside>
 
       <motion.section className="glass device-strip" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }}>
-        <div className="panel-title">Device Zones</div>
+        <div className="panel-title">Garden Lanes</div>
         <div className="device-grid">
           {devices.map((device) => (
             <div key={device.id} className="device-card">
