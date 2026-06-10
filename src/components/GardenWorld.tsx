@@ -342,7 +342,20 @@ function Scene() {
       <Bird offset={0.55} z={1.5} />
       <Sparkles count={42} scale={[10, 2, 7]} position={[0, 1.2, 0]} speed={0.16} size={1.4} color="#f9e7a1" />
       {agents.map((agent, index) => <Gnome key={agent.id} agent={agent} index={index} />)}
-      <OrbitControls enablePan={false} enableZoom={false} enableRotate={false} />
+      <OrbitControls
+        makeDefault
+        enablePan
+        enableZoom
+        enableRotate={false}
+        screenSpacePanning
+        zoomSpeed={0.85}
+        panSpeed={0.85}
+        minZoom={38}
+        maxZoom={118}
+        target={[0, 0.15, 0]}
+        mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }}
+        touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }}
+      />
     </>
   );
 }
@@ -350,7 +363,7 @@ function Scene() {
 export function GardenWorld() {
   return (
     <section className="world-shell real-3d" aria-label="Three.js animated low-poly gnome garden dashboard">
-      <Canvas shadows dpr={[1, 1.35]} orthographic camera={{ position: [7.8, 7.2, 8.6], zoom: 64, near: 0.1, far: 100 }} gl={{ antialias: true, powerPreference: 'high-performance' }}>
+      <Canvas shadows dpr={[1, 1.5]} orthographic camera={{ position: [6.8, 9.6, 6.8], zoom: 72, near: 0.1, far: 100 }} gl={{ antialias: true, powerPreference: 'high-performance' }}>
         <Suspense fallback={null}>
           <Scene />
         </Suspense>

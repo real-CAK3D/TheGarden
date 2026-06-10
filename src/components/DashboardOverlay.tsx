@@ -24,7 +24,8 @@ export function DashboardOverlay() {
       <motion.header className="hud-card title-hud" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
         <div className="hud-eyebrow"><Leaf size={15} /> The Garden Live</div>
         <h1>Gnome Garden</h1>
-        <p>Real Three.js low-poly dashboard. Tiny agents walk their routes; the UI stays out of the scenery&apos;s way.</p>
+        <p>Top-down Three.js farm board with walking gnome agents. Drag the scene to pan. Pinch or scroll to zoom.</p>
+        <div className="control-hint">Drag to pan • pinch/scroll to zoom • tap a gnome or name</div>
         <div className="hud-stats">
           <span><Bot size={14} /> {agents.length}</span>
           <span><Cpu size={14} /> {devices.length}</span>
